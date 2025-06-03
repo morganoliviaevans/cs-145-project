@@ -17,8 +17,8 @@ This project uses the ATmega32 microcontroller, an 8-bit LED strip and sound dec
 
 The sound detector continuously captures real-time audio levels and sends amplitude data to the ATmega32. Based on this audio input:
 
-The LED strip lights up green for an acceptable volume, yellow for elevated volume, and red for excessive volume.
-If the user remains in the red zone for an extended period of time or frequently re-enters it, the system activates a white flashing pattern to interrupt gameplay and encourage behavioral correction.
+- The LED strip lights up green for an acceptable volume, yellow for elevated volume, and red for excessive volume.
+- If the user remains in the red zone for an extended period of time or frequently re-enters it, the system activates a white flashing pattern to interrupt gameplay and encourage behavioral correction.
 
 This feedback loop helps the gamer recognize when their voice exceeds acceptable levels and promotes quieter behavior during gaming sessions. 
 
