@@ -33,22 +33,21 @@ int main() {
     while(1) {
         // LISTENING State
         if (audio_state == LISTENING) {
-            //avr_wait(100); // Wait for 100 ms before checking audio level
             audio_level = get_audio_level(); // Get audio level from ADC
             // If sound level is at acceptable volume, LED is green
-            if (audio_level <= 300) {
+            if (audio_level <= 20) {
                 // Set LED to green
                 green_led();
             }
 
             // // If sound level is at elevated volume, LED is yellow
-            // if (audio_level > 297 && audio_level <= 300) {
-            //     // Set LED to yellow
-            //     blue_led();
-            // }
+            if (audio_level > 20 && audio_level <= 50) {
+                // Set LED to yellow
+                blue_led();
+            }
 
             // If sound level is at excessive volume, LED is red
-            if (audio_level > 300) {
+            if (audio_level > 50) {
                 // Set LED to red
                 red_led();
                 // Begin timer

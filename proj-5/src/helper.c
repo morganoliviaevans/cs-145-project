@@ -18,7 +18,7 @@ void led_setup() {
 
 // Initialize ADC
 void adc_init() {
-    ADMUX = (1 << REFS0) | (1 << MUX0);                 // AVCC as ref, ADC1
+    ADMUX = (1 << REFS0);                 // AVCC as ref, ADC0
     ADCSRA = (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1); // Enable ADC, prescaler 64
 }
 
@@ -32,9 +32,10 @@ int adc_read() {
 int get_audio_level() {
     int sum_levels = 0;
     for(int i = 0; i < 10; ++i) { // Take 10 readings for averaging
+        avr_wait(10); // Wait for 10 ms between readings
         sum_levels += get_one_reading(); // Get one reading from ADC
     }
-    int level = sum_levels / 10; // Average the readings
+    int level = sum_levels / 5; // Average the readings
     // Optionally add smoothing or scaling
     return level;
 }
