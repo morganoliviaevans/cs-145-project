@@ -9,10 +9,10 @@
 
 int RED_LED = 2;
 int GREEN_LED = 4;
-int BLUE_LED = 5;
+int YELLOW_LED = 5;
 
-void led_setup() {
-    // Set RED, GREEN, BLUE LED pins to output
+void led_init() {
+    // Set RED, GREEN, YELLOW LED pins to output
     DDRD |= (1 << PIN2) | (1 << PIN4) | (1 << PIN5);
 }
 
@@ -51,9 +51,9 @@ void green_led() {
     SET_BIT(PORTD, GREEN_LED); // Turn on the green LED
 }
 
-void blue_led() {
-    turn_off_leds();          // Ensure all LEDs are off before turning on the blue LED
-    SET_BIT(PORTD, BLUE_LED); // Turn on the blue LED
+void yellow_led() {
+    turn_off_leds();            // Ensure all LEDs are off before turning on the yellow LED
+    SET_BIT(PORTD, YELLOW_LED); // Turn on the yellow LED
 }
 
 void red_led() {
@@ -62,15 +62,15 @@ void red_led() {
 }
 
 void flash_led() {
-    turn_off_leds();           // Ensure all LEDs are off before flashing
-    SET_BIT(PORTD, RED_LED);   // Turn on the red LED
-    SET_BIT(PORTD, BLUE_LED);  // Turn on the blue LED
-    SET_BIT(PORTD, GREEN_LED); // Turn on the green LED
-    avr_wait(500);             // Wait for 500 ms
+    turn_off_leds();            // Ensure all LEDs are off before flashing
+    SET_BIT(PORTD, RED_LED);    // Turn on the red LED
+    SET_BIT(PORTD, YELLOW_LED); // Turn on the yellow LED
+    SET_BIT(PORTD, GREEN_LED);  // Turn on the green LED
+    avr_wait(500);              // Wait for 500 ms
 }
 
 void turn_off_leds() {
-    CLR_BIT(PORTD, RED_LED);   // Turn off the red LED
-    CLR_BIT(PORTD, BLUE_LED);  // Turn off the blue LED
-    CLR_BIT(PORTD, GREEN_LED); // Turn off the green LED
+    CLR_BIT(PORTD, RED_LED);    // Turn off the red LED
+    CLR_BIT(PORTD, YELLOW_LED); // Turn off the yellow LED
+    CLR_BIT(PORTD, GREEN_LED);  // Turn off the green LED
 }

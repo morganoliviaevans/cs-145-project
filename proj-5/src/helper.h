@@ -5,12 +5,12 @@
 // HELPER FUNCTIONS
 ///////////////////
 
-void led_setup();
+void led_init();
 void adc_init();
 int adc_read();
 int get_audio_level();
 void green_led();
-void blue_led();
+void yellow_led();
 void red_led();
 void flash_led();
 void turn_off_leds();
