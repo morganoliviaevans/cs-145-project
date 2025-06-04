@@ -1,5 +1,4 @@
-# cs-145-project
-CS 145 - Embedded Systems Project
+# CS 145 - Embedded Systems Final Project
 
 ## Overview
 
