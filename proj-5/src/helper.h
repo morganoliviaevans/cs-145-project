@@ -6,11 +6,12 @@
 ///////////////////
 
 void adc_init();
-uint16_t adc_read();
-uint16_t get_audio_level();
+int adc_read();
+int get_audio_level();
 void green_led();
 void yellow_led();
 void red_led();
 void flash_led();
+void turn_off_leds();
 
 #endif /* _helper_h */

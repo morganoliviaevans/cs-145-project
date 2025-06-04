@@ -30,26 +30,25 @@ int main() {
     avr_wait(1000);
 
     while(1) {
-
         // LISTENING State
         if (audio_state == LISTENING) {
             // Wait a lil bit
             avr_wait(500);
-
+            audio_level = get_audio_level(); // Get audio level from ADC
             // If sound level is at acceptable volume, LED is green
-            if (audio_level <= 300) {
+            if (audio_level <= 200) {
                 // Set LED to green
                 green_led();
             }
 
             // If sound level is at elevated volume, LED is yellow
-            if (audio_level > 300 && audio_level <= 500) {
+            if (audio_level > 200 && audio_level <= 400) {
                 // Set LED to yellow
                 yellow_led();
             }
 
             // If sound level is at excessive volume, LED is red
-            if (audio_level > 500) {
+            if (audio_level > 400) {
                 // Set LED to red
                 red_led();
                 // Begin timer
@@ -62,13 +61,13 @@ int main() {
 
         // FLASH State
         if (audio_state == FLASH) {
-            int timer = 30;
             // Commence FLASH sequence for 30 seconds
-            flash_led();
-            // Go back to LISTEN state
-            if (timer == 0) {
-                audio_state = LISTENING;
+            int i = 0;
+            while(i < 60) {
+                flash_led();
             }
+            // Go back to LISTEN state
+            audio_state = LISTENING;
         } 
     }
 }
