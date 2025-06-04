@@ -7,11 +7,14 @@
 // HELPER FUNCTIONS
 ///////////////////
 
-#define RED_LED_ PD2
-#define BLUE_LED PD5
-#define GREEN_LED PD4
+int RED_LED = 2;
+int GREEN_LED = 4;
+int BLUE_LED = 5;
 
-uint16_t read;
+void led_setup() {
+    // Set RED, GREEN, BLUE LED pins to output
+    DDRD |= (1 << PIN2) | (1 << PIN4) | (1 << PIN5);
+}
 
 // Initialize ADC
 void adc_init() {
@@ -27,33 +30,47 @@ int adc_read() {
 }
 
 int get_audio_level() {
-    int level = adc_read();
+    int sum_levels = 0;
+    for(int i = 0; i < 10; ++i) { // Take 10 readings for averaging
+        avr_wait(10); // Wait for 50 ms between readings
+        sum_levels += get_one_reading(); // Get one reading from ADC
+    }
+    int level = sum_levels / 6; // Average the readings
     // Optionally add smoothing or scaling
     return level;
+}
+
+int get_one_reading() {
+    int reading = adc_read(); // Read the ADC value
+    return reading;           // Return the ADC value
 }
 
 //Testing with individual LEDs
 void green_led() {
     turn_off_leds(); // Ensure all LEDs are off before turning on the green LED
-    PORTD |= (1 << GREEN_LED); // Turn on the green LED
+    SET_BIT(PORTD, GREEN_LED); // Turn on the green LED
 }
 
-void yellow_led() {
+void blue_led() {
     turn_off_leds(); // Ensure all LEDs are off before turning on the yellow LED
-    PORTD |= (1 << BLUE_LED);
+    SET_BIT(PORTD, BLUE_LED); // Turn on the blue LED for yellow
 }
 
 void red_led() {
     turn_off_leds(); // Ensure all LEDs are off before turning on the red LED
-    PORTD |= (1 << RED_LED_); // Turn on the red LED
+    SET_BIT(PORTD, RED_LED); // Turn on the red LED
 }
 
 void flash_led() {
     turn_off_leds(); // Ensure all LEDs are off before flashing
-    PORTD |= (1 << RED_LED_) | (1 << BLUE_LED) | (1 << GREEN_LED); // Turn on all LEDs
+    SET_BIT(PORTD, RED_LED);   // Turn on the red LED
+    SET_BIT(PORTD, BLUE_LED);  // Turn on the blue LED
+    SET_BIT(PORTD, GREEN_LED); // Turn on the green LED
     avr_wait(500); // Wait for 500 ms
 }
 
 void turn_off_leds() {
-    PORTD &= ~((1 << RED_LED_) | (1 << BLUE_LED) | (1 << GREEN_LED)); // Turn off all LEDs
+    CLR_BIT(PORTD, RED_LED);   // Turn off the red LED
+    CLR_BIT(PORTD, BLUE_LED);  // Turn off the blue LED
+    CLR_BIT(PORTD, GREEN_LED); // Turn off the green LED
 }

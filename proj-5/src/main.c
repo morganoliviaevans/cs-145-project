@@ -21,6 +21,7 @@ State Logic:
 
 int main() {
 
+    led_setup(); // Initialize LED pins
     typedef enum {LISTENING, FLASH} AudioState;
     AudioState audio_state = LISTENING;
     float audio_level = 0;
@@ -32,42 +33,41 @@ int main() {
     while(1) {
         // LISTENING State
         if (audio_state == LISTENING) {
-            // Wait a lil bit
-            avr_wait(500);
+            //avr_wait(100); // Wait for 100 ms before checking audio level
             audio_level = get_audio_level(); // Get audio level from ADC
             // If sound level is at acceptable volume, LED is green
-            if (audio_level <= 200) {
+            if (audio_level <= 300) {
                 // Set LED to green
                 green_led();
             }
 
-            // If sound level is at elevated volume, LED is yellow
-            if (audio_level > 200 && audio_level <= 400) {
-                // Set LED to yellow
-                yellow_led();
-            }
+            // // If sound level is at elevated volume, LED is yellow
+            // if (audio_level > 297 && audio_level <= 300) {
+            //     // Set LED to yellow
+            //     blue_led();
+            // }
 
             // If sound level is at excessive volume, LED is red
-            if (audio_level > 400) {
+            if (audio_level > 300) {
                 // Set LED to red
                 red_led();
                 // Begin timer
                 // If it has been 5 seconds at excessive volume, enter FLASH state
-                if (audio_level == audio_max) {
-                    audio_state = FLASH;
-                }
+                // if (audio_level == audio_max) {
+                //     audio_state = FLASH;
+                // }
             }
         } 
 
-        // FLASH State
-        if (audio_state == FLASH) {
-            // Commence FLASH sequence for 30 seconds
-            int i = 0;
-            while(i < 60) {
-                flash_led();
-            }
-            // Go back to LISTEN state
-            audio_state = LISTENING;
-        } 
+        // // FLASH State
+        // if (audio_state == FLASH) {
+        //     // Commence FLASH sequence for 30 seconds
+        //     int i = 0;
+        //     while(i < 60) {
+        //         flash_led();
+        //     }
+        //     // Go back to LISTEN state
+        //     audio_state = LISTENING;
+        // } 
     }
 }
