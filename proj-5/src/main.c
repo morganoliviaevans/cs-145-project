@@ -25,7 +25,6 @@ int main() {
     typedef enum {LISTENING, FLASH} AudioState;
     AudioState audio_state = LISTENING;
     float audio_level = 0;
-    float audio_max = 0;
     // Set PA1 as input
     AUDIO_DDR &= ~(1 << AUDIO_PIN);
     adc_init();
@@ -43,13 +42,13 @@ int main() {
             }
 
             // If sound level is at elevated volume, LED is yellow
-            if (audio_level > 20 && audio_level <= 50) {
+            if (audio_level > 20 && audio_level <= 40) {
                 // Set LED to yellow
                 yellow_led();
             }
 
             // If sound level is at excessive volume, LED is red
-            if (audio_level > 50) {
+            if (audio_level > 40) {
                 // Set LED to red
                 red_led();
                 // Begin timer
