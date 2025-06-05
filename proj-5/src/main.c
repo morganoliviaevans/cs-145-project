@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <avr.h>
 #include <helper.h>
-//#include "ws2812_config.h" // LED strip config
-//#include "light_ws2812.h"  // LED strip library
 
 #define AUDIO_PORT PORTA
 #define AUDIO_DDR DDRA
