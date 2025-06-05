@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "avr.h": "c",
+        "light_ws2812.h": "c",
+        "stdio.h": "c",
+        "ws2812_config.h": "c",
+        "helper.h": "c",
+        "interrupt.h": "c"
+    }
+}

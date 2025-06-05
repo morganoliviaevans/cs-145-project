@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <avr.h>
 #include <helper.h>
+//#include "ws2812_config.h" // LED strip config
+//#include "light_ws2812.h"  // LED strip library
 
 #define AUDIO_PORT PORTA
 #define AUDIO_DDR DDRA
@@ -31,44 +33,50 @@ int main() {
     avr_wait(1000);
 
     while(1) {
-        // LISTENING State
-        if (audio_state == LISTENING) {
-            // Get audio level from ADC
-            audio_level = get_audio_level();
-            // If sound level is at acceptable volume, LED is green
-            if (audio_level <= 20) {
-                // Set LED to green
-                green_led();
-            }
-
-            // If sound level is at elevated volume, LED is yellow
-            if (audio_level > 20 && audio_level <= 40) {
-                // Set LED to yellow
-                yellow_led();
-            }
-
-            // If sound level is at excessive volume, LED is red
-            if (audio_level > 40) {
-                // Set LED to red
-                red_led();
-                // Begin timer
-
-                // If it has been 5 seconds at excessive volume, enter FLASH state
-                // if (audio_level == 50) {
-                //     audio_state = FLASH;
-                // }
-            }
-        } 
-
-        // // FLASH State
-        if (audio_state == FLASH) {
-            // Commence FLASH sequence for 30 seconds
-            int i = 0;
-            while(i < 60) {
-                flash_led();
-            }
-            // Go back to LISTEN state
-            audio_state = LISTENING;
-        } 
+        led_test();
+        avr_wait(1000);
+        turn_off_leds();
+        avr_wait(1000);
     }
+
+    // while(1) {
+    //     // LISTENING State
+    //     if (audio_state == LISTENING) {
+    //         // Get audio level from ADC
+    //         audio_level = get_audio_level();
+    //         // If sound level is at acceptable volume, LED is green
+    //         if (audio_level <= 20) {
+    //             // Set LED to green
+    //             green_led();
+    //         }
+
+    //         // If sound level is at elevated volume, LED is yellow
+    //         if (audio_level > 20 && audio_level <= 40) {
+    //             // Set LED to yellow
+    //             yellow_led();
+    //         }
+
+    //         // If sound level is at excessive volume, LED is red
+    //         if (audio_level > 40) {
+    //             // Set LED to red
+    //             red_led();
+    //             // Begin timer
+
+    //             // If it has been 5 seconds at excessive volume, enter FLASH state
+    //             // if (audio_level == 50) {
+    //             //     audio_state = FLASH;
+    //             // }
+    //         }
+    //     } 
+    //     // // FLASH State
+    //     // if (audio_state == FLASH) {
+    //     //     // Commence FLASH sequence for 30 seconds
+    //     //     int i = 0;
+    //     //     while (i < 60) {
+    //     //         flash_led();
+    //     //     }
+    //     //     // Go back to LISTEN state
+    //     //     audio_state = LISTENING;
+    //     // } 
+    // }
 }
