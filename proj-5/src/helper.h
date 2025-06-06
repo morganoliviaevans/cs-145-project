@@ -6,9 +6,12 @@
 ///////////////////
 
 void led_init();
-void green_led();
-void yellow_led();
-void red_led();
+void green_led_on();
+void yellow_led_on();
+void red_led_on();
+void green_led_off();
+void yellow_led_off();
+void red_led_off();
 void flash_led();
 void turn_off_leds();
 void led_test();
